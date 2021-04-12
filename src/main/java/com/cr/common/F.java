@@ -2,6 +2,7 @@ package com.cr.common;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -53,6 +54,18 @@ public class F {
         });
         long endTime = System.currentTimeMillis();
         log.info("threads total run time - {}", endTime-startTime);
+    }
+
+    public static <T> List<T> initList(Class<T> clazz, int count){
+        List<T> list = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            if (String.class.equals(clazz)){
+                list.add((T) String.valueOf(i));
+            } else if (Integer.class.equals(clazz)){
+                list.add((T) Integer.valueOf(i));
+            }
+        }
+        return list;
     }
 
     private static Random random = new Random();
