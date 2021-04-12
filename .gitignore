@@ -12,6 +12,6 @@
 *.rar
 hs_err_pid*
 
-java.iml
-.idea
-.target
+.idea/
+.target/
+*.iml
