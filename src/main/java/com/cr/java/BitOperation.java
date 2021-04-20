@@ -78,7 +78,7 @@ public class BitOperation {
     }
 
     public static void main(String[] args) {
-        //leftMove();
+        leftMove();
         //rightMove();
         //noSymbolRightMove();
         bitReverse();
