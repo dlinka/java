@@ -1,6 +1,6 @@
 package com.cr.thread.juc;
 
-import com.cr.common.F;
+import com.cr.common.Facility;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -73,24 +73,24 @@ public class CyclicBarrierUsage {
         @SneakyThrows
         @Override
         public void run() {
-            int random = F.random(20);
-            F.printThread("sleep " + random);
+            int random = Facility.random(20);
+            Facility.printThread("sleep " + random);
             TimeUnit.SECONDS.sleep(random);
-            F.print("entering the barrier");
+            Facility.print("entering the barrier");
             if (Objects.isNull(timeout)) {
                 cb.await();
             } else {
                 try {
                     cb.await(timeout, TimeUnit.SECONDS);
                 } catch (InterruptedException e) {
-                    F.print(e);
+                    Facility.print(e);
                 } catch (BrokenBarrierException e) {
-                    F.print(e);
+                    Facility.print(e);
                 } catch (TimeoutException e) {
-                    F.print(e);
+                    Facility.print(e);
                 }
             }
-            F.printThread("continue");
+            Facility.printThread("continue");
         }
     }
 

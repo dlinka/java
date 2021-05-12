@@ -1,6 +1,6 @@
 package com.cr.jcf.list;
 
-import com.cr.common.F;
+import com.cr.common.Facility;
 
 import java.util.List;
 
@@ -9,13 +9,13 @@ import java.util.List;
  */
 public class ArrayListThreadNotSafe {
 
-    List<String> list = F.initList(String.class, 10000);
+    List<String> list = Facility.initList(String.class, 10000);
 
     public void demo() {
         for (int i = 0; i != 10; ++i) {
             new Thread(() -> {
                 while (list.size() > 0) {
-                    F.print(list.remove(0));
+                    Facility.print(list.remove(0));
                 }
             }).start();
         }

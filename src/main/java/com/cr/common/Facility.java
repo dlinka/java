@@ -5,12 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
- * 便捷类Facility
+ * 便捷类
  */
 @Slf4j
-public class F {
+public class Facility {
 
     public static void print(Exception e){
         log.error(e.toString(), e);
@@ -42,18 +43,40 @@ public class F {
         return i;
     }
 
-    public static void threadStartAndJoin(List<Thread> ts){
+    /**
+     * 启动线程
+     * 根据isJoin判断是否等待传入线程执行完毕
+     * @param ts
+     * @param isJoin
+     */
+    public static void start(List<Thread> ts, boolean isJoin){
         long startTime = System.currentTimeMillis();
         ts.forEach(t -> t.start());
-        ts.forEach(t -> {
-            try {
-                t.join();
-            } catch (InterruptedException e) {
-                log.error("thread interrupt - {}", t.getName());
-            }
-        });
-        long endTime = System.currentTimeMillis();
-        log.info("threads total run time - {}", endTime-startTime);
+        if(isJoin){
+            ts.forEach(t -> {
+                try {
+                    t.join();
+                } catch (InterruptedException e) {
+                    log.error("thread interrupt - {}", t.getName());
+                }
+            });
+            long endTime = System.currentTimeMillis();
+            log.info("threads total run time - {}", endTime-startTime);
+        }
+    }
+
+    /**
+     * 当前线程sleep
+     * 默认是秒
+     * @param time
+     */
+    public static void sleep(long time){
+        Thread t = Thread.currentThread();
+        try {
+            TimeUnit.SECONDS.sleep(time);
+        } catch (InterruptedException e) {
+            log.error("thread interrupt - {}", t.getName());
+        }
     }
 
     public static <T> List<T> initList(Class<T> clazz, int count){

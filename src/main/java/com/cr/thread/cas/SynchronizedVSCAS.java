@@ -1,9 +1,10 @@
 package com.cr.thread.cas;
 
-import com.cr.common.F;
-import com.cr.thread.cas.LockByCAS;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
-import java.util.*;
+import static com.cr.common.Facility.start;
 
 /**
  *
@@ -41,7 +42,7 @@ public class SynchronizedVSCAS {
                         }
                     }));
         }
-        F.threadStartAndJoin(threads);
+        start(threads, true);
     }
 
     public void cas() {
@@ -62,7 +63,7 @@ public class SynchronizedVSCAS {
                         }
                     }));
         }
-        F.threadStartAndJoin(threads);
+        start(threads, true);
     }
 
     public static void main(String[] args) {

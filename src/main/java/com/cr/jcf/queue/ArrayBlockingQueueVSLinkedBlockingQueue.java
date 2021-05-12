@@ -1,6 +1,6 @@
 package com.cr.jcf.queue;
 
-import com.cr.common.F;
+import com.cr.common.Facility;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static com.cr.common.Facility.start;
 
 /**
  * 前置条件:
@@ -76,9 +78,9 @@ public class ArrayBlockingQueueVSLinkedBlockingQueue {
                     }));
         }
 
-        F.threadStartAndJoin(threads);
-        F.print("生产数量 - {}", productCount.get());
-        F.print("消费数量 - {}", consumerCount.get());
+        start(threads , true);
+        Facility.print("生产数量 - {}", productCount.get());
+        Facility.print("消费数量 - {}", consumerCount.get());
     }
 
 }

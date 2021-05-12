@@ -1,6 +1,6 @@
 package com.cr.jcf.queue;
 
-import com.cr.common.F;
+import com.cr.common.Facility;
 
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
@@ -16,7 +16,7 @@ public class ProducerConsumerByBlockingQueue {
             while (true) {
                 try {
                     int val = random.nextInt(1000);
-                    F.print(val);
+                    Facility.print(val);
                     blockingQueue.put(val);
                     TimeUnit.MILLISECONDS.sleep(random.nextInt(val));
                 } catch (InterruptedException e) {
@@ -28,7 +28,7 @@ public class ProducerConsumerByBlockingQueue {
             new Thread(() -> {
                 while(true){
                     try {
-                        F.print(blockingQueue.take());
+                        Facility.print(blockingQueue.take());
                     } catch (InterruptedException e) {
                     }
                 }

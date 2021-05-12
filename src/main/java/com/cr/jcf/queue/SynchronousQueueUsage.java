@@ -12,7 +12,7 @@ public class SynchronousQueueUsage {
         //queue.add(1);
 
         //false
-        //queue.offer(1);
+        System.out.println(queue.offer(1));
 
         //阻塞
         queue.put(1);

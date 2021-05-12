@@ -1,6 +1,6 @@
 package com.cr.java;
 
-import com.cr.common.F;
+import com.cr.common.Facility;
 
 public class OuterLoop {
 
@@ -9,19 +9,19 @@ public class OuterLoop {
         position1:
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                F.print(i + "-" + j);
+                Facility.print(i + "-" + j);
                 if (i == 5 && j == 5) {
                     break position1;
                 }
             }
         }
 
-        F.printLine();
+        Facility.printLine();
 
         position2:
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                F.print(i + "-" +j);
+                Facility.print(i + "-" +j);
                 if (i == 5 && j == 5) {
                     continue position2;
                 }

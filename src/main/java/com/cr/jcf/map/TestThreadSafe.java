@@ -1,11 +1,13 @@
 package com.cr.jcf.map;
 
-import com.cr.common.F;
+import com.cr.common.Facility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.cr.common.Facility.start;
 
 public class TestThreadSafe {
 
@@ -24,8 +26,8 @@ public class TestThreadSafe {
                 }
             }));
         }
-        F.threadStartAndJoin(threads);
-        F.print(map.size());
+        start(threads, true);
+        Facility.print(map.size());
     }
 
     public static void main(String[] args) {
