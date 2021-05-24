@@ -26,11 +26,11 @@ public class Facility {
     }
 
     public static void printThread(){
-        log.info("thread name - {}", Thread.currentThread().getName());
+        log.info("THREAD - [{}]", Thread.currentThread().getName());
     }
 
     public static void printThread(String txt){
-        log.info("thread {} - {}", Thread.currentThread().getName(), txt);
+        log.info("THREAD - [{}] - {}", Thread.currentThread().getName(), txt);
     }
 
     public static void printLine() {
@@ -46,8 +46,6 @@ public class Facility {
     /**
      * 启动线程
      * 根据isJoin判断是否等待传入线程执行完毕
-     * @param ts
-     * @param isJoin
      */
     public static void start(List<Thread> ts, boolean isJoin){
         long startTime = System.currentTimeMillis();
@@ -68,7 +66,6 @@ public class Facility {
     /**
      * 当前线程sleep
      * 默认是秒
-     * @param time
      */
     public static void sleep(long time){
         Thread t = Thread.currentThread();
@@ -77,6 +74,17 @@ public class Facility {
         } catch (InterruptedException e) {
             log.error("thread interrupt - {}", t.getName());
         }
+    }
+
+    /**
+     * 随机睡眠一段时间
+     * 最大睡眠10秒
+     */
+    public static int sleepRandom(){
+        int time = random(10);
+        Facility.print(time);
+        sleep(time);
+        return time;
     }
 
     public static <T> List<T> initList(Class<T> clazz, int count){
