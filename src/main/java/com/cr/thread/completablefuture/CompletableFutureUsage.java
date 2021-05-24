@@ -27,6 +27,20 @@ public class CompletableFutureUsage {
         Facility.print(cf.join());
     }
 
+    //返回只会赋值一次,哪个先完成用哪个
+    public static void usage14() {
+        CompletableFuture<Integer> cf = CompletableFuture.supplyAsync(() -> {
+            Facility.printThread();
+            Facility.sleep(2);
+            return 2;
+        });
+        Facility.sleep(1);
+        cf.complete(1);
+        Facility.sleep(5);
+        //返回值还是1
+        Facility.print(cf.join());
+    }
+
     //任务顺序执行
     public static void usage2() {
         CompletableFuture<Integer> cf1 = CompletableFuture.completedFuture(1);
@@ -87,25 +101,8 @@ public class CompletableFutureUsage {
         anyOf.join();
     }
 
-    public static void usage7() {
-        CompletableFuture<Integer> cf = CompletableFuture.supplyAsync(() -> {
-            for (int i = 0; i < 5; i++) {
-                Facility.sleep(3);
-                Facility.print("sleep");
-            }
-            return 10000;
-        });
-        Facility.sleep(1);
-        cf.complete(1);
-        Facility.sleep(10);
-        //返回值还是1
-        Facility.print(cf.join());
-    }
-
-
-
     public static void main(String[] args) {
-        usage32();
+        usage14();
     }
 
 }

@@ -33,23 +33,8 @@ public class CompletableFutureAsync {
         Facility.printThread();
     }
 
-    //加强理解
-    public static void demo3() {
-        CompletableFuture<String> cf1 = CompletableFuture.supplyAsync(() -> "CR1");
-        CompletableFuture<String> cf2 = CompletableFuture.supplyAsync(() -> {
-            String result = "CR2";
-            Facility.printThread(result);
-            return result;
-        });
-        CompletableFuture<String> cf = cf1.applyToEither(cf2, result -> {
-            Facility.printThread("main");
-            return result;
-        });
-        cf.join();
-    }
-
     public static void main(String[] args) {
-        demo3();
+        demo1();
     }
 
 }
