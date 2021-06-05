@@ -12,7 +12,7 @@
 *.rar
 hs_err_pid*
 
-.idea
+.idea/
 .target/
 *.iml
 .DS_Store
