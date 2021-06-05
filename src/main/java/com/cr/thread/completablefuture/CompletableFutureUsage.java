@@ -8,7 +8,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 public class CompletableFutureUsage {
-    //静态方法创建任务
+
+    //使用静态方法创建任务
     public static void usage11() {
         CompletableFuture<Integer> cf = CompletableFuture.supplyAsync(() -> 0);
         cf.join();
@@ -19,6 +20,7 @@ public class CompletableFutureUsage {
         //线程阻塞
         //cf.join();
         cf.complete(1);
+        cf.join();
     }
 
     //null
@@ -41,50 +43,35 @@ public class CompletableFutureUsage {
         Facility.print(cf.join());
     }
 
-    //任务顺序执行
+    //任务1>任务2>任务3
     public static void usage2() {
         CompletableFuture<Integer> cf1 = CompletableFuture.completedFuture(1);
-        CompletableFuture<Integer> cf2 = cf1.thenApplyAsync(v -> {
-            Facility.printThread();
-            return 2;
-        });
-        CompletableFuture<LocalDate> cf3 = cf2.thenApplyAsync(v -> {
-            Facility.printThread();
-            return LocalDate.now();
-        });
+        CompletableFuture<Integer> cf2 = cf1.thenApplyAsync(v -> 2);
+        CompletableFuture<LocalDate> cf3 = cf2.thenApplyAsync(v -> LocalDate.now());
         Facility.print(cf1.join());
         Facility.print(cf2.join());
         Facility.print(cf3.join());
     }
 
-    //两个任务同时进行,获取返回结果再次执行任务
-    public static void usage31() {
+    //任务1和任务2同时进行
+    //获取返回结果再次执行任务
+    public static void usage3() {
         CompletableFuture<Integer> cf1 = CompletableFuture.supplyAsync(() -> 1);
         CompletableFuture<String> cf2 = CompletableFuture.supplyAsync(() -> "CR");
         CompletableFuture<LocalDate> cf3 = cf1.thenCombineAsync(cf2, (r1, r2) -> LocalDate.now());
         Facility.print(cf3.join());
     }
 
-    //两个任务有一个完成,就执行一个新的任务
-    public static void usage32() {
-        CompletableFuture<Integer> cf1 = CompletableFuture.supplyAsync(() -> {
-            Facility.printThread();
-            return Facility.sleepRandom();
-        });
-        CompletableFuture<Integer> cf2 = CompletableFuture.supplyAsync(() -> {
-            Facility.printThread();
-            return Facility.sleepRandom();
-        });
-        //applyToEitherAsync()使用ForkJoinPool.commonPool()中的线程执行,这里可能新创建一个,也可能使用先完成任务的线程执行
-        CompletableFuture<String> cf = cf1.applyToEitherAsync(cf2, result -> {
-            Facility.printThread();
-            return String.valueOf(result * 10);
-        });
+    //两个任务任一个完成,就执行一个新的任务
+    public static void usage4() {
+        CompletableFuture<Integer> cf1 = CompletableFuture.supplyAsync(() -> Facility.sleepRandom());
+        CompletableFuture<Integer> cf2 = CompletableFuture.supplyAsync(() -> Facility.sleepRandom());
+        CompletableFuture<String> cf = cf1.applyToEitherAsync(cf2, result -> String.valueOf(result * 10));
         Facility.print(cf.join());
     }
 
     //多个任务同时完成才能继续
-    public static void usage41() {
+    public static void usage5() {
         CompletableFuture<Integer> cf1 = CompletableFuture.supplyAsync(() -> 1);
         CompletableFuture<String> cf2 = CompletableFuture.supplyAsync(() -> "CR");
         CompletableFuture<LocalDate> cf3 = CompletableFuture.supplyAsync(() -> LocalDate.now());
@@ -93,7 +80,7 @@ public class CompletableFutureUsage {
     }
 
     //多个任务有一个完成就能继续
-    public static void usage42() {
+    public static void usage6() {
         CompletableFuture<Integer> cf1 = CompletableFuture.supplyAsync(() -> 1);
         CompletableFuture<String> cf2 = CompletableFuture.supplyAsync(() -> "CR");
         CompletableFuture<LocalDate> cf3 = CompletableFuture.supplyAsync(() -> LocalDate.now());
@@ -102,7 +89,7 @@ public class CompletableFutureUsage {
     }
 
     public static void main(String[] args) {
-        usage14();
+        usage2();
     }
 
 }

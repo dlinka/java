@@ -26,7 +26,7 @@ public class Facility {
     }
 
     public static void printThread(){
-        log.info("THREAD - [{}]", Thread.currentThread().getName());
+        log.info("<<");
     }
 
     public static void printThread(String txt){

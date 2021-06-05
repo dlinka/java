@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class CompletableFutureAsync {
 
-    //没有Async后缀的方法,线程执行的不确定性
+    //使用没有Async后缀的方法,会导致线程执行的不确定性
     public static void demo1() {
         CompletableFuture<Integer> cf = CompletableFuture.supplyAsync(() -> {
             //Facility.sleep(1);
@@ -19,22 +19,7 @@ public class CompletableFutureAsync {
             Facility.printThread();
             return i;
         });
-        Facility.print(cf.join());
-    }
-
-    //Async后缀的方法,都是使用ForkJoinPool.commonPool()中的线程执行
-    public static void demo2() {
-        CompletableFuture<Integer> cf = CompletableFuture.supplyAsync(() -> 0)
-                .thenApplyAsync(i -> {
-                    Facility.printThread();
-                    Facility.sleep(1000);
-                    return i;
-                });
-        Facility.printThread();
-    }
-
-    public static void main(String[] args) {
-        demo1();
+        cf.join();
     }
 
 }

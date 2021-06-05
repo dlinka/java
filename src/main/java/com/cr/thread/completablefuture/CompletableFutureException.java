@@ -4,6 +4,7 @@ import com.cr.common.Facility;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 public class CompletableFutureException {
 
@@ -59,6 +60,16 @@ public class CompletableFutureException {
         Facility.print(cf.join());
     }
 
+    public static void usage33(){
+        CompletableFuture<Integer> cf = CompletableFuture.supplyAsync(() -> {
+            int i = 27 / 0;
+            return i;
+        });
+        //必须重新赋值
+        CompletableFuture<Integer> exceptionally = cf.exceptionally(ex -> 2);
+        Facility.print(exceptionally.join());
+    }
+
     //handle
     public static void usage4() {
         CompletableFuture<String> cf = CompletableFuture
@@ -83,7 +94,9 @@ public class CompletableFutureException {
         //Facility.printLine();
         //usage32();
         //Facility.printLine();
-        usage4();
+        usage33();
+        Facility.printLine();
+        //usage4();
         //Facility.printLine();
     }
 
