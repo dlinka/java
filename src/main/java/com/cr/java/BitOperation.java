@@ -1,5 +1,7 @@
 package com.cr.java;
 
+import com.cr.common.Facility;
+
 /**
  * 位运算
  * 左移<<
@@ -19,9 +21,9 @@ public class BitOperation {
      */
     public static void leftMove() {
         int num = 12333292;
-        System.out.println(num << 8);
-        System.out.println(Integer.toBinaryString(num));
-        System.out.println(Integer.toBinaryString(num << 8));
+        Facility.printBinary(num);
+        Facility.printBinary(num << 8);
+        Facility.print(num << 8);
     }
 
     /**
@@ -31,9 +33,9 @@ public class BitOperation {
      */
     public static void rightMove() {
         int num = 12333292;
-        System.out.println(num >> 8);
-        System.out.println(Integer.toBinaryString(num));
-        System.out.println(Integer.toBinaryString(num >> 8));
+        Facility.printBinary(num);
+        Facility.printBinary(num >> 8);
+        Facility.print(num >> 8);
     }
 
     /**
@@ -43,9 +45,9 @@ public class BitOperation {
      */
     public static void noSymbolRightMove() {
         int num = -1;
-        System.out.println(num >>> 8);
-        System.out.println(Integer.toBinaryString(num));
-        System.out.println(Integer.toBinaryString(num >>> 8));
+        Facility.printBinary(num);
+        Facility.printBinary(num >>> 8);
+        Facility.print(num >>> 8);
     }
 
     //两个位都为1时,才为1
@@ -80,7 +82,7 @@ public class BitOperation {
     public static void main(String[] args) {
         leftMove();
         //rightMove();
-        //noSymbolRightMove();
+        noSymbolRightMove();
         bitReverse();
     }
 
