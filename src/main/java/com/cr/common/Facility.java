@@ -52,14 +52,21 @@ public class Facility {
     }
 
     /**
-     * 启动线程
-     * 根据isJoin判断是否等待传入线程执行完毕
+     * 启动所有线程
      */
-    public static void start(List<Thread> ts, boolean isJoin) {
+    public static void start(List<Thread> tl) {
+        start(tl, true);
+    }
+
+    /**
+     * 启动所有线程
+     *  join:判断是否等待传入线程执行完毕
+     */
+    public static void start(List<Thread> tl, boolean join) {
         long startTime = System.currentTimeMillis();
-        ts.forEach(t -> t.start());
-        if (isJoin) {
-            ts.forEach(t -> {
+        tl.forEach(t -> t.start());
+        if (join) {
+            tl.forEach(t -> {
                 try {
                     t.join();
                 } catch (InterruptedException e) {
@@ -67,7 +74,7 @@ public class Facility {
                 }
             });
             long endTime = System.currentTimeMillis();
-            log.info("threads total run time - {}", endTime - startTime);
+            log.info("time - {}", endTime - startTime);
         }
     }
 
