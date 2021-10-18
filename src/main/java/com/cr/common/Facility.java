@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * 便捷类
@@ -26,7 +28,7 @@ public class Facility {
     }
 
     public static void printThread() {
-        log.info("<<");
+        log.info("THREAD - [{}]", Thread.currentThread().getName());
     }
 
     public static void printThread(String txt) {
