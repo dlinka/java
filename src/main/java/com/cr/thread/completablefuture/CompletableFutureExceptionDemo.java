@@ -6,16 +6,23 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
-public class CompletableFutureException {
+public class CompletableFutureExceptionDemo {
 
-    //异常抛出后,调用链后面不会执行
-    public static void usage1() {
+    public static void main(String[] args) {
+        //CompletableFutureExceptionDemo.throwException();
+        CompletableFutureExceptionDemo.exceptionally();
+    }
+
+    /**
+     * 异常抛出后,调用链后面不会执行
+     */
+    public static void throwException() {
         CompletableFuture<Integer> cf = CompletableFuture.completedFuture(1)
-                .thenApplyAsync(v -> {
+                .thenApply(v -> {
                     if (v == 1)
                         throw new RuntimeException();
                     return 2;
-                }).thenApplyAsync(v -> {
+                }).thenApply(v -> {
                     //这里不会打印
                     Facility.print(v);
                     return 3;
@@ -23,23 +30,13 @@ public class CompletableFutureException {
         cf.join();
     }
 
-    //不调用join,控制台不会报错
-    public static void usage2() {
-        CompletableFuture<Integer> cf = CompletableFuture.supplyAsync(() -> {
-            int value = 2;
-            if (value == 2) {
-                throw new RuntimeException();
-            }
-            return value;
-        });
-        //cf.join();
-    }
-
-    //exceptionally
-    public static void usage31() {
+    /**
+     * exceptionally
+     */
+    public static void exceptionally() {
         CompletableFuture<Integer> cf = CompletableFuture
                 .completedFuture(1)
-                .thenApplyAsync((v) -> {
+                .thenApply((v) -> {
                     if (v == 1) {
                         throw new RuntimeException("cr");
                     }
@@ -51,8 +48,10 @@ public class CompletableFutureException {
         Facility.print(cf.join());
     }
 
-    //没有异常exceptionally不会执行
-    public static void usage32() {
+    /**
+     * 没有异常exceptionally不会执行
+     */
+    public static void exceptionallyOfNoException() {
         CompletableFuture<Integer> cf = CompletableFuture
                 .completedFuture(1)
                 .thenApplyAsync(v -> 2)
@@ -60,44 +59,21 @@ public class CompletableFutureException {
         Facility.print(cf.join());
     }
 
-    public static void usage33(){
-        CompletableFuture<Integer> cf = CompletableFuture.supplyAsync(() -> {
-            int i = 27 / 0;
-            return i;
-        });
-        //必须重新赋值
-        CompletableFuture<Integer> exceptionally = cf.exceptionally(ex -> 2);
-        Facility.print(exceptionally.join());
-    }
-
-    //handle
-    public static void usage4() {
+    /**
+     * handle
+     */
+    public static void handle() {
         CompletableFuture<String> cf = CompletableFuture
                 .supplyAsync(() -> {
                     if (Facility.random(10) % 2 == 0) throw new RuntimeException("异常");
                     return 1;
                 })
-                .handleAsync((i, ex) -> {
+                .handle((i, ex) -> {
                     Facility.print(i);
                     Optional.ofNullable(ex).ifPresent(e -> Facility.print(e.getMessage()));
                     return "CR";
                 });
         Facility.print(cf.join());
-    }
-
-    public static void main(String[] args) {
-        //usage1();
-        //Facility.printLine();
-        //usage2();
-        //Facility.printLine();
-        //usage31();
-        //Facility.printLine();
-        //usage32();
-        //Facility.printLine();
-        usage33();
-        Facility.printLine();
-        //usage4();
-        //Facility.printLine();
     }
 
 }
