@@ -1,6 +1,7 @@
 package com.cr.rocketmq.store;
 
 import com.cr.common.Facility;
+import com.cr.common.FileUtil;
 import com.cr.rocketmq.MQUtil;
 import org.apache.rocketmq.common.message.MessageDecoder;
 import org.apache.rocketmq.common.message.MessageExt;
@@ -13,8 +14,8 @@ public class ReadMessageByConsumeQueue {
     static String consumeQueuePath = "/Users/dlinka/store/consumequeue/ROCKETMQ_1/1/00000000000000000000";
 
     public static void main(String[] args) throws IOException {
-        ByteBuffer commitLog = MQUtil.mmap(commitLogPath);
-        ByteBuffer consumeQueue = MQUtil.mmap(consumeQueuePath);
+        ByteBuffer commitLog = FileUtil.mmap(commitLogPath);
+        ByteBuffer consumeQueue = FileUtil.mmap(consumeQueuePath);
         print(commitLog, consumeQueue);
     }
 

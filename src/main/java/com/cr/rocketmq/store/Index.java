@@ -2,6 +2,7 @@ package com.cr.rocketmq.store;
 
 import cn.hutool.core.date.DateUtil;
 import com.cr.common.Facility;
+import com.cr.common.FileUtil;
 import com.cr.rocketmq.MQUtil;
 
 import java.io.IOException;
@@ -16,7 +17,7 @@ public class Index {
     }
 
     private static void index() throws IOException {
-        ByteBuffer buffer = MQUtil.read(path);
+        ByteBuffer buffer = FileUtil.read(path);
         Facility.print("消息存储的最小时间               - {}",DateUtil.date(buffer.getLong()));
         Facility.print("消息存储的最大时间               - {}", DateUtil.date(buffer.getLong()));
         Facility.print("CommitLog最小偏移               - {}", buffer.getLong());
