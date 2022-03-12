@@ -1,4 +1,4 @@
-package com.cr.IO.nio;
+package com.cr.IO.nio.serverAndclient;
 
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -23,25 +23,28 @@ public class NIOServerDemo {
         print("服务器启动，等待连接");
 
         while (true) {
-
-            selector.select();
+            selector.select(); //阻塞
 
             Set<SelectionKey> selectionKeys = selector.selectedKeys();
             Iterator<SelectionKey> iterator = selectionKeys.iterator();
 
             while (iterator.hasNext()) {
                 SelectionKey selectionKey = iterator.next();
+
                 if (selectionKey.isAcceptable()) {
                     print("尝试连接");
+
                     SocketChannel socketChannel = serverSocketChannel.accept();
                     socketChannel.configureBlocking(false);
                     socketChannel.register(selector, SelectionKey.OP_READ, ByteBuffer.allocate(32));
                 }
+
                 if (selectionKey.isReadable()) {
-                    print("读取连接");
+                    print("读取数据");
+
                     SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
                     ByteBuffer buffer = (ByteBuffer) selectionKey.attachment();
-                    int read = socketChannel.read(buffer);
+                    int read = socketChannel.read(buffer); //读取的字节数量
                     print("read - {}", read);
 
                     buffer.flip();
@@ -49,7 +52,7 @@ public class NIOServerDemo {
                     while (buffer.hasRemaining()) {
                         sb.append((char) buffer.get());
                     }
-                    print("长度:{}, 字符串:{}", sb.length(), sb.toString());
+                    print("字符串:{}", sb.toString());
                     buffer.clear();
                 }
                 iterator.remove();
