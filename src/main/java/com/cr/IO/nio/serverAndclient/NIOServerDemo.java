@@ -45,11 +45,22 @@ public class NIOServerDemo {
                     SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
                     ByteBuffer buffer = (ByteBuffer) selectionKey.attachment();
                     int read; //读取的字节数量
-                    while ((read = socketChannel.read(buffer)) > 0) {
-                        print("read - {}", read);
-                        String msg = new String(buffer.array());
-                        print("字符串:{}", msg);
-                        buffer.clear();
+                    while (true) {
+                        read = socketChannel.read(buffer);
+                        if (read > 0) {
+                            print("read - {}", read);
+                            String msg = new String(buffer.array());
+                            print("字符串:{}", msg);
+                            buffer.rewind();
+                        } else if (read == 0) {
+                            print("读取结束");
+                            break;
+                        } else {
+                            print("关闭连接");
+                            selectionKey.cancel();
+                            socketChannel.close();
+                            break;
+                        }
                     }
                 }
                 iterator.remove();
