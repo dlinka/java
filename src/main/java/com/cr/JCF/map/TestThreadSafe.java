@@ -1,4 +1,4 @@
-package com.cr.jcf.map;
+package com.cr.JCF.map;
 
 import com.cr.common.Facility;
 
