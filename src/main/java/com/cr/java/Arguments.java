@@ -7,27 +7,42 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import static com.cr.common.Facility.print;
+import static com.cr.common.Facility.printLine;
+
 public class Arguments {
 
     public static void main(String[] args) {
+        /**
+         * Program arguments中设置a b c
+         *  a
+         *  b
+         *  c
+         */
         for (String arg : args) {
-            Facility.print(arg);
+            print(arg);
         }
+        printLine();
 
-        Facility.printLine();
+        /**
+         * Environment variables中设置p=1;q=2
+         *  p=1
+         *  q=2
+         */
+        Map<String, String> envs = System.getenv();
+        envs.forEach((k, v) -> {
+            print(k + "=" + v);
+        });
+        printLine();
 
-        Map<String, String> getenv = System.getenv();
-        Set<Map.Entry<String, String>> entries1 = getenv.entrySet();
-        for (Map.Entry<String, String> entry : entries1) {
-            Facility.print(entry.getKey() + " - " + entry.getValue());
-        }
-
-        Facility.printLine();
-
+        /**
+         * VM options中设置-Dk1=v1 -Dk2=v2
+         *  k2=v2
+         *  k1=v1
+         */
         Properties p = System.getProperties();
-        Set<Map.Entry<Object, Object>> entries2 = p.entrySet();
-        for (Map.Entry<Object, Object> entry: entries2) {
-            Facility.print(entry.getKey() + " - " + entry.getValue());
+        for (Map.Entry<Object, Object> entry: p.entrySet()) {
+            print(entry.getKey() + "=" + entry.getValue());
         }
     }
 }
