@@ -1,4 +1,4 @@
-package com.cr.jcf.queue;
+package com.cr.JCF.queue;
 
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
