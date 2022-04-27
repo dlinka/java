@@ -28,8 +28,15 @@ public class CyclicBarrierDemo {
         }).start();
 
         new Thread(() -> {
-            Facility.print("线程3开始执行");
+            Facility.print("线程2开始执行");
             Facility.sleep(3);
+            JUCUtil.barrierAwait(barrier);
+            Facility.print("线程2执行完毕");
+        }).start();
+
+        new Thread(() -> {
+            Facility.print("线程3开始执行");
+            Facility.sleep(5);
             JUCUtil.barrierAwait(barrier);
             Facility.print("线程3执行完毕");
         }).start();
