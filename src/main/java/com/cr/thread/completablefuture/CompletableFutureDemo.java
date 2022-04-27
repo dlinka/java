@@ -104,7 +104,7 @@ public class CompletableFutureDemo {
 
         //2.
         CompletableFuture<Void> cf2 = CompletableFuture.runAsync(() -> {
-            Facility.printThread();
+            Facility.printThreadName();
             Facility.print("没有返回值的异步任务");
         });
         CompletableFuture<Integer> cf3 = CompletableFuture.supplyAsync(() -> {

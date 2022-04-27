@@ -9,25 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class CompletableFutureExceptionDemo {
 
     public static void main(String[] args) {
-        //CompletableFutureExceptionDemo.throwException();
         CompletableFutureExceptionDemo.exceptionally();
-    }
-
-    /**
-     * 异常抛出后,调用链后面不会执行
-     */
-    public static void throwException() {
-        CompletableFuture<Integer> cf = CompletableFuture.completedFuture(1)
-                .thenApply(v -> {
-                    if (v == 1)
-                        throw new RuntimeException();
-                    return 2;
-                }).thenApply(v -> {
-                    //这里不会打印
-                    Facility.print(v);
-                    return 3;
-                });
-        cf.join();
     }
 
     /**
