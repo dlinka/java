@@ -24,7 +24,7 @@ public class Example3 {
         JsonNode jsonNode = objectMapper.readTree(result);
         print(jsonNode);
 
-        //解析null，返回com.fasterxml.jackson.databind.node.NullNode
+        //返回com.fasterxml.jackson.databind.node.NullNode
         JsonNode nullNode1 = jsonNode.path("null");
         print(nullNode1.getClass().getName());
         JsonNode nullNode2 = jsonNode.get("null");

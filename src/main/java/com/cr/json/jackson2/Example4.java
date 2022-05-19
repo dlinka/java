@@ -7,8 +7,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import static com.cr.common.Facility.print;
 
 /**
- * JsonNode对象不可变，用于读取
- * ObjectNode可变，用于创建Json对象图
+ * 由于JsonNode对象不可变，主要用于读取，所以使用ObjectNode进行创建Json对象图
  */
 public class Example4 {
 
@@ -22,7 +21,6 @@ public class Example4 {
         profile.put("name", "engineer");
         profile.put("year", 10);
         root.set("profile", profile);
-
 
         ObjectNode school = objectMapper.createObjectNode();
         school.put("university", "east china");

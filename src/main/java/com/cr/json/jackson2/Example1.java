@@ -61,6 +61,7 @@ public class Example1 {
         list.add(Staff.createStaff());
         String jsonList = mapper.writeValueAsString(list);
         print(jsonList);
+
         list = mapper.readValue(jsonList, new TypeReference<List<Staff>>() {
         });
         print(list);
