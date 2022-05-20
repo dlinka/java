@@ -2,11 +2,13 @@ package com.cr.common;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -15,8 +17,23 @@ import java.util.function.Supplier;
 @Slf4j
 public class Facility {
 
+    public static void printRunTime(RunFunction function){
+        long startTime = System.currentTimeMillis();
+        try {
+            function.run();
+        } catch (Exception e) {
+            print(e);
+        }
+        long endTime = System.currentTimeMillis();
+        log.info("运行时长 - {}", endTime - startTime);
+    }
+
     public static void print(Exception e) {
         log.error(e.toString(), e);
+    }
+
+    public static void print(String msg, Exception e) {
+        log.error(msg, e);
     }
 
     public static void print(Object o) {
@@ -27,7 +44,7 @@ public class Facility {
         log.info(format, o);
     }
 
-    public static void printThread() {
+    public static void printThreadName() {
         log.info("THREAD - [{}]", Thread.currentThread().getName());
     }
 
@@ -84,14 +101,26 @@ public class Facility {
      * 当前线程sleep
      * 默认是秒
      */
-    public static void sleep(long time) {
+    public static void sleep(long second) {
+        try {
+            TimeUnit.SECONDS.sleep(second);
+        } catch (InterruptedException e) {
+            log.error("thread interrupt - {}", Thread.currentThread().getName());
+        }
+    }
+
+    /**
+     * 当前线程sleep
+     */
+    public static void sleep(long time, TimeUnit unit) {
         Thread t = Thread.currentThread();
         try {
-            TimeUnit.SECONDS.sleep(time);
+            unit.sleep(time);
         } catch (InterruptedException e) {
             log.error("thread interrupt - {}", t.getName());
         }
     }
+
 
     /**
      * 随机睡眠一段时间
@@ -99,7 +128,7 @@ public class Facility {
      */
     public static int sleepRandom() {
         int time = random(10);
-        Facility.print(time);
+        Facility.print("sleep time - {}", time);
         sleep(time);
         return time;
     }

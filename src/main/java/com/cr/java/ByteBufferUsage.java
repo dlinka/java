@@ -6,6 +6,10 @@ import java.nio.ByteBuffer;
 
 public class ByteBufferUsage {
 
+    public static void main(String[] args) {
+        slice();
+    }
+
     //初始化
     private static void init() {
         //实现类为HeapByteBuffer

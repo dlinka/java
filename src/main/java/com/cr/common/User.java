@@ -7,7 +7,6 @@ import lombok.ToString;
 
 @Data
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor
 public class User {
 
@@ -15,4 +14,9 @@ public class User {
     private String username;
     private Integer age;
 
+    public User(Long uid, String username, Integer age) {
+        this.uid = uid;
+        this.username = username;
+        this.age = age;
+    }
 }

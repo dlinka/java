@@ -12,7 +12,18 @@ import java.util.stream.Collectors;
 public class ThreadLocalRandomUsage {
 
     static int PROBE_INCREMENT = 0x9e3779b9;
+    static int SQMASK          = 0x007e;
     static AtomicInteger PROBE = new AtomicInteger(PROBE_INCREMENT);
+
+    //probe偶数
+    static void probeEven() {
+        int probe = PROBE_INCREMENT;
+        for (int i = 0; i < 20; i++) {
+            int k = probe & (16 - 1) & SQMASK;
+            Facility.print(k);
+            probe += PROBE_INCREMENT;
+        }
+    }
 
     //probe的作用
     static void probeUsage(){
@@ -54,10 +65,10 @@ public class ThreadLocalRandomUsage {
         return probe;
     }
 
-
     public static void main(String[] args) {
+        probeEven();
         //probeUsage();
-        checkRepeatProbe();
+        //checkRepeatProbe();
     }
 
 }
