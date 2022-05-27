@@ -4,9 +4,6 @@ import com.cr.common.Facility;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/**
- * 1.测试并发读写
- */
 public class CopyOnWriteArrayListDemo {
 
     public static void concurrentRW() {
