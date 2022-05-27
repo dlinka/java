@@ -3,7 +3,6 @@ package com.cr.elasticsearch;
 import com.alibaba.fastjson.JSON;
 import com.cr.common.Facility;
 import com.cr.common.User;
-import com.sun.tools.javac.util.Assert;
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.bulk.BulkRequest;
