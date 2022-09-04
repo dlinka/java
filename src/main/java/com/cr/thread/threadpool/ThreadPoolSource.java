@@ -1,19 +1,23 @@
 package com.cr.thread.threadpool;
 
+import com.cr.common.Facility;
+
 /**
  * ThreadPoolExecutor源码
  */
 public class ThreadPoolSource {
 
     public static void main(String[] args) {
-        int COUNT_BITS = Integer.SIZE - 3;
-        int CAPACITY = (1 << COUNT_BITS) - 1;
-        System.out.println(Integer.toBinaryString(CAPACITY));
-        int RUNNING = -1 << COUNT_BITS;
-        System.out.println(Integer.toBinaryString(RUNNING));
-        int SHUTDOWN = 0<<COUNT_BITS;
-        System.out.println(Integer.toBinaryString(SHUTDOWN));
-        int STOP = 1 << COUNT_BITS;
-        System.out.println(Integer.toBinaryString(STOP));
+        int CAPACITY = (1 << 29) - 1;
+        Facility.printBinary(CAPACITY);
+
+        int RUNNING = -1 << 29;
+        Facility.printBinary(RUNNING);
+
+        int SHUTDOWN = 0<<29;
+        Facility.printBinary(SHUTDOWN);
+
+        int STOP = 1 << 29;
+        Facility.printBinary(STOP);
     }
 }
